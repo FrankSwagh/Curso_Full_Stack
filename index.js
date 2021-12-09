@@ -10,48 +10,57 @@ const Header = (props) => {
 }
 
 const Content = (props) => {
+console.log(props.parts)
+let arreglo = []
+arreglo = Object.values(props.parts)
+console.log(arreglo)
+console.log(arreglo[0].name)
+console.log(arreglo[0].exercises)
   return (
+    
     <div>
-      <p>El contenido se basa en {props.part} con {props.exercises} ejercicios, </p>
+    
+        <p>El contenido se basa en {arreglo[0].name} con {arreglo[0].exercises} ejercicios </p>
+        <p>El contenido se basa en {arreglo[1].name} con {arreglo[1].exercises} ejercicios </p>
+        <p>El contenido se basa en {arreglo[2].name} con {arreglo[2].exercises} ejercicios </p>
+        
     </div>
   )
 }
 
 const Total = (props) => {
+  let arreglo = []
+  arreglo = Object.values(props.parts)
   return (
     <div>
-      <p>La suma es igual a {props.exercises1 + props.exercises2 + props.exercises3} </p>
+      <p>La suma es igual a {arreglo[0].exercises + arreglo[1].exercises + arreglo[2].exercises} </p>
     </div>
   )
 }
 
-
-
 const App = () => {
   const course = 'Half Stack application development'
-
-  const part1 = { 
-    name: 'Fundamentals of React',
-    exercises: 10
-  }
-  const part2 = {
-    name:'Using props to pass data',
-    exercises: 7
-  }
-  const part3 = {
-    name: 'State of a component',
-    exercises: 14
-  }
-
+  const parts = [
+    {
+      name: 'Fundamentals of React',
+      exercises: 10
+    },
+    {
+      name: 'Using props to pass data',
+      exercises: 7
+    },
+    {
+      name: 'State of a component',
+      exercises: 14
+    }
+  ]
   return (
-  <div>
-    <Header course={course} />
-    <Content part ={part1.name} exercises = {part1.exercises}/>
-    <Content part ={part2.name} exercises = {part2.exercises}/>
-    <Content part ={part3.name} exercises = {part3.exercises}/>
-    <Total exercises1={part1.exercises }exercises2={part2.exercises} exercises3={part3.exercises} />
-  </div>
-)
+    <div>
+      <Header course={course} />
+      <Content parts={parts} />
+      <Total parts={parts} />
+    </div>
+  )
 }
 
 ReactDOM.render(<App />, document.getElementById('root'))
