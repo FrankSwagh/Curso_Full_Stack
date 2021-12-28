@@ -1,6 +1,49 @@
-import React from 'react'
+import React, { useState } from 'react'
 import ReactDOM from 'react-dom'
 
+const Button = (props) => (
+  <button onClick={props.handleClick}>
+    {props.text}
+  </button>
+)
+
+const App = () => {
+  const [good, setGood] = useState(0)
+  const [neutral, setNeutral] = useState(0)
+  const [bad, setBad] = useState(0)
+
+  const setToGood = newGood => {
+    setGood(newGood)
+  }
+
+  const setToNeutral = newNeutral => {
+    setNeutral(newNeutral)
+  }
+
+  const setToBad = newBad => {
+    setBad(newBad)
+  }
+
+  return (
+    <div>
+      <h1>Give feedback</h1>
+      <Button handleClick={() => setToGood(good + 1)} text = "Bueno" />
+      <Button handleClick={() => setToNeutral(neutral + 1)} text = "Neutral" />
+      <Button handleClick={() => setToBad(bad + 1)} text = "Malo" />
+      <h2>Statistics</h2>
+      <p>Good: {good}</p>
+      <p>Neutral: {neutral}</p>
+      <p>Bad: {bad}</p>
+    </div>
+  )
+}
+
+
+ReactDOM.render(
+  <App />, 
+  document.getElementById('root')
+)
+/* 
 const Header = (props) => {
   return (
     <div>
@@ -64,4 +107,5 @@ const App = () => {
   )
 }
 
-ReactDOM.render(<App />, document.getElementById('root'))
+ReactDOM.render(<App />, document.getElementById('root')) 
+*/
