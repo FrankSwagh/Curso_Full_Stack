@@ -8,19 +8,41 @@ const Button = (props) => (
   </button>
 )
 
-const Stadisticas = ({good, neutral, bad, sum, sump, pos}) => {
-  let res = sump /sum
+const Hist = (props) => {
+  const {  good, neutral, bad, sum, sump  } = props
+  if (good === 0 && neutral === 0 && bad === 0) {
+    return (
+    <div>
+      <p>  </p>
+      <p>  </p>
+      <p>  </p>
+      <p>  </p>
+      <p><b>No feedback given</b></p>
+      
+
+    </div>)
+  } else {
+    return (
+    <div>
+      <Stadisticas good={good} neutral={neutral} bad={bad} sum={sum} sump={sump} />
+    </div>)
+  }
+
+}
+
+const Stadisticas = ({ good, neutral, bad, sum, sump }) => {
+  let res = sump / sum
   let tot = good / sum
-  return(
-  <div>
-    <h2>Statistics</h2>
-    <p>Good: {good}</p>
-    <p>Neutral: {neutral}</p>
-    <p>Bad: {bad}</p>
-    <p>All: {sum}</p>
-    <p>Average: {res}</p>
-    <p>Positive: {tot} </p>
-  </div>
+  return (
+    <div>
+      <h2>Statistics</h2>
+      <p>Good: {good}</p>
+      <p>Neutral: {neutral}</p>
+      <p>Bad: {bad}</p>
+      <p>All: {sum}</p>
+      <p>Average: {res}</p>
+      <p>Positive: {tot} </p>
+    </div>
   )
 }
 
@@ -51,6 +73,7 @@ const App = () => {
     setBad(newBad)
   }
   console.log("puntos", sump, "entre", sum)
+
   return (
     <div>
       <h1>Give feedback</h1>
@@ -58,8 +81,8 @@ const App = () => {
       <Button handleClick={() => SetToNeutral(neutral + 1)} text="Neutral" />
       <Button handleClick={() => SetToBad(bad + 1)} text="Malo" />
 
-      <Stadisticas good={good} neutral={neutral} bad={bad} sum={sum} sump={sump} pos={pos} />
-      
+      <Hist good={good} neutral={neutral} bad={bad} sum={sum} sump={sump} />
+
     </div>
   )
 }
