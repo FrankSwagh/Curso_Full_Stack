@@ -9,36 +9,37 @@ const Button = (props) => (
 )
 
 const Hist = (props) => {
-  const {  good, neutral, bad, sum, sump  } = props
-  let res = sump / sum
-  let tot = good / sum
+  const { good, neutral, bad, sum, sump } = props
+  let res = (sump / sum).toPrecision(1)
+  let tot = (good / sum).toPrecision(2)
   if (sum === 0) {
     return (
-    <div>
-      <p>  </p>
-      <p>  </p>
-      <p>  </p>
-      <p>  </p>
-      <p><b>No feedback given</b></p>
-    </div>)
+      <div>
+        <p><b>No feedback given</b></p>
+      </div>)
   } else {
     return (
-    <div>
-      <Stadisticas text="Good" value= {good}></Stadisticas>
-      <Stadisticas text="Neutral" value= {neutral}></Stadisticas>
-      <Stadisticas text="Bad" value= {bad}></Stadisticas>
-      <Stadisticas text="Average" value= {res}></Stadisticas>
-      <Stadisticas text="Positive" value= {tot}></Stadisticas>
-    </div>)
+      <div>
+        <table>
+          <tbody>
+            <Stadisticas text="Good    " value={good}></Stadisticas>
+            <Stadisticas text="Neutral " value={neutral}></Stadisticas>
+            <Stadisticas text="Bad     " value={bad}></Stadisticas>
+            <Stadisticas text="Average " value={res}></Stadisticas>
+            <Stadisticas text="Positive" value={tot.concat("%")}></Stadisticas>
+          </tbody>
+        </table>
+      </div>)
   }
 
 }
 
 const Stadisticas = (props) => {
   return (
-    <div>
-      <p>{props.text} {props.value}</p>
-    </div>
+    <tr>
+      <td>{props.text}</td>
+      <td>{props.value}</td>
+    </tr>
   )
 }
 
