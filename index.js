@@ -8,84 +8,34 @@ const Button = (props) => (
   </button>
 )
 
-const Hist = (props) => {
-  const { good, neutral, bad, sum, sump } = props
-  let res = (sump / sum).toPrecision(1)
-  let tot = (good / sum).toPrecision(2)
-  if (sum === 0) {
-    return (
-      <div>
-        <p><b>No feedback given</b></p>
-      </div>)
-  } else {
-    return (
-      <div>
-        <table>
-          <tbody>
-            <Stadisticas text="Good    " value={good}></Stadisticas>
-            <Stadisticas text="Neutral " value={neutral}></Stadisticas>
-            <Stadisticas text="Bad     " value={bad}></Stadisticas>
-            <Stadisticas text="Average " value={res}></Stadisticas>
-            <Stadisticas text="Positive" value={tot.concat("%")}></Stadisticas>
-          </tbody>
-        </table>
-      </div>)
-  }
-
-}
-
-const Stadisticas = (props) => {
-  return (
-    <tr>
-      <td>{props.text}</td>
-      <td>{props.value}</td>
-    </tr>
-  )
-}
-
 const App = () => {
-  const [good, setGood] = useState(0)
-  const [neutral, setNeutral] = useState(0)
-  const [bad, setBad] = useState(0)
-  const [sum, setSum] = useState(0)
-  const [sump, setSump] = useState(0)
-  const [pos, setPos] = useState(0)
+  const [selected, setSelected] = useState(0)
 
-  const SetToGood = newGood => {
-    setSum(sum + 1)
-    setSump(sump + 1)
-    setPos(pos + 1)
-    setGood(newGood)
-  }
 
-  const SetToNeutral = newNeutral => {
-    setSum(sum + 1)
-    setSump(sump + 0)
-    setNeutral(newNeutral)
-  }
+  const anecdotes = [
+    'If it hurts, do it more often',
+    'Adding manpower to a late software project makes it later!',
+    'The first 90 percent of the code accounts for the first 90 percent of the development time...The remaining 10 percent of the code accounts for the other 90 percent of the development time.',
+    'Any fool can write code that a computer can understand. Good programmers write code that humans can understand.',
+    'Premature optimization is the root of all evil.',
+    'Debugging is twice as hard as writing the code in the first place. Therefore, if you write the code as cleverly as possible, you are, by definition, not smart enough to debug it.'
+  ]
 
-  const SetToBad = newBad => {
-    setSump(sump - 1)
-    setSum(sum + 1)
-    setBad(newBad)
+
+  const SetRandom = () =>{
+    let numero = Math.floor(Math.random() * ((5 + 1 )- 1) + 1)
+    setSelected(numero)
   }
-  console.log("puntos", sump, "entre", sum)
 
   return (
     <div>
-      <h1>Give feedback</h1>
-      <Button handleClick={() => SetToGood(good + 1)} text="Bueno" />
-      <Button handleClick={() => SetToNeutral(neutral + 1)} text="Neutral" />
-      <Button handleClick={() => SetToBad(bad + 1)} text="Malo" />
-      <h2>Statistics</h2>
-      <Hist good={good} neutral={neutral} bad={bad} sum={sum} sump={sump} />
-
+      <Button handleClick= {() => SetRandom(selected)} text="Random"/>
+      {anecdotes[selected]}
+      {console.log(selected)}
     </div>
   )
 }
 
 
-ReactDOM.render(
-  <App />,
-  document.getElementById('root')
-)
+
+ReactDOM.render(<App />, document.getElementById('root'))
