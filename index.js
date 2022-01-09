@@ -10,7 +10,8 @@ const Button = (props) => (
 
 const App = () => {
   const [selected, setSelected] = useState(0)
-
+  const [voto, setVoto] = useState(0)
+  const [puntos, setPuntos] = useState([0, 0, 0, 0, 0, 0])
 
   const anecdotes = [
     'If it hurts, do it more often',
@@ -20,6 +21,15 @@ const App = () => {
     'Premature optimization is the root of all evil.',
     'Debugging is twice as hard as writing the code in the first place. Therefore, if you write the code as cleverly as possible, you are, by definition, not smart enough to debug it.'
   ]
+  
+
+  const Copiar = () => {
+    const copy = [...puntos]
+    copy[selected] += 1
+    setPuntos(copy)
+    setVoto(copy[selected])
+    console.log(copy)
+  }
 
 
   const SetRandom = () =>{
@@ -29,9 +39,10 @@ const App = () => {
 
   return (
     <div>
-      <Button handleClick= {() => SetRandom(selected)} text="Random"/>
-      {anecdotes[selected]}
-      {console.log(selected)}
+      <Button handleClick= {() => SetRandom(selected)} text="Next anecdote"/>
+      <p>{anecdotes[selected]}</p>
+      <Button handleClick = {Copiar} text = "Vote"/>
+      <p>Has {voto} votes</p>
     </div>
   )
 }
