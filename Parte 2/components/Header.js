@@ -1,7 +1,8 @@
 import React from 'react'
 
 const Header = (props) => {
-  return <h1>{props.coursename}</h1>
+  console.log("cabecera",props);
+  return <h1>{props.name}</h1>
 }
 
 export default Header
