@@ -1,18 +1,19 @@
-const agregarNombre = ({
+const AgregarNombre = ({
   newName,
   newPhone,
-  cambiarNombre,
-  cambiarTelefono,
+  CambiarNombre,
+  CambiarTelefono,
   ImprimirNombres
 }) => {
+  console.log(ImprimirNombres);
   return (
     <div>
       <form onSubmit={ImprimirNombres}>
         <div>
-          name: <input value={newName} onChange={cambiarNombre} />
+          name: <input value={newName} onChange={CambiarNombre} />
         </div>
         <div>
-          number: <input value={newPhone} onChange={cambiarTelefono} />
+          number: <input value={newPhone} onChange={CambiarTelefono} />
         </div>
         <div>
           <button type="submit">add</button>
@@ -22,4 +23,4 @@ const agregarNombre = ({
   );
 };
 
-export default agregarNombre;
+export default AgregarNombre;

@@ -9,7 +9,6 @@ const ImprimirBusqueda = ({ persons, newSearch }) => {
   let nombres = [];
   let arreglo = [];
   let temp;
-  //for (let a = 0; buscar.length >= a; a++) buscar.pop();
   persons.map((indice) => nombres.push(indice.name));
 
   nombres.map((indi) => {

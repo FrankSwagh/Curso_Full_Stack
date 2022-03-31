@@ -1,67 +1,83 @@
-import { useState, useEffect } from 'react'
-import axios from 'axios'
-import Note from './components/Note'
+import React, { useState } from "react";
+import AgregarNombre from "./components/AgregarNombre";
+import Busqueda from "./components/Buscar";
+import ImprimirBusqueda from "./components/ImprimirBusqueda";
 
 const App = () => {
-  const [notes, setNotes] = useState([])
-  const [newNote, setNewNote] = useState('')
-  const [showAll, setShowAll] = useState(true)
+  const [persons, setPersons] = useState([
+    { id: 1, name: "Arto Hellas", number: "040-123456" },
+    { id: 2, name: "Ada Lovelace", number: "39-44-5323523" },
+    { id: 3, name: "Dan Abramov", number: "12-43-234345" },
+    { id: 4, name: "Mary Poppendieck", number: "39-23-6423122" },
+  ]);
+  const [newName, setNewName] = useState("");
+  const [newPhone, setNewPhone] = useState("");
+  const [newSearch, setSearch] = useState("");
 
-  useEffect(() => {
-    console.log('effect')
-    axios
-      .get('http://localhost:3001/notes')
-      .then(response => {
-        console.log('promise fulfilled')
-        setNotes(response.data)
-      })
-  }, [])
-  console.log('render', notes.length, 'notes')
-
-  const addNote = (event) => {
-    event.preventDefault()
-    const noteObject = {
-      content: newNote,
-      date: new Date().toISOString(),
-      important: Math.random() > 0.5,
-      id: notes.length + 1,
+  const ImprimirNombres = (event) => {
+    event.preventDefault();
+    console.log("algo?");
+    if (Alerta()) {
+      const newPerson = {
+        name: newName,
+        number: newPhone,
+        id: persons.length + 1,
+      };
+      setPersons(persons.concat(newPerson));
+    } else {
+      setNewName("");
+      setNewPhone("");
     }
+    setNewName("");
+      setNewPhone("");
+  };
 
-    setNotes(notes.concat(noteObject))
-    setNewNote('')
-  }
+  const Alerta = () => {
+    let sino = false;
+    persons.map((indice) => {
+      let nombres = [];
+      nombres.push(indice.name);
+      if (nombres.includes(newName)) {
+        window.alert(`${newName} is already in phonebook`);
+        sino = false;
+      } else {
+        sino = true;
+      }
+      return sino;
+    });
+    return sino;
+  };
 
-  const handleNoteChange = (event) => {
-    console.log(event.target.value)
-    setNewNote(event.target.value)
-  }
+  const CambiarNombre = (event) => {
+    setNewName(event.target.value);
+    console.log(event.target.value);
+  };
 
-  const notesToShow = showAll
-    ? notes
-    : notes.filter(note => note.important)
+  const CambiarTelefono = (event) => {
+    setNewPhone(event.target.value);
+    console.log(event.target.value);
+  };
+
+  const BuscarPersona = (event) => {
+    setSearch(event.target.value);
+  };
 
   return (
     <div>
-      <h1>Notes</h1>
-      <div>
-        <button onClick={() => setShowAll(!showAll)}>
-          show {showAll ? 'important' : 'all' }
-        </button>
-      </div>   
-      <ul>
-        {notesToShow.map(note => 
-          <Note key={note.id} note={note} />
-        )}
-      </ul>
-      <form onSubmit={addNote}>
-        <input
-          value={newNote}
-          onChange={handleNoteChange}
-        />
-        <button type="submit">save</button>
-      </form>
+      <h2>Phonebook</h2>
+      <Busqueda buscarPersona={BuscarPersona} newSearch={newSearch} />
+      <h2>Add a new</h2>
+      <AgregarNombre
+        ImprimirNombres={ImprimirNombres}
+        newName={newName}
+        CambiarNombre={CambiarNombre}
+        newPhone={newPhone}
+        CambiarTelefono={CambiarTelefono}
+      />
+      <h2>Numbers</h2>
+      <ImprimirBusqueda persons={persons} newSearch={newSearch} />
     </div>
-  )
-}
+  );
+};
 
-export default App
+export default App;

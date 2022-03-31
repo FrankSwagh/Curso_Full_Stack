@@ -1,9 +1,9 @@
 import React from "react";
 
-const Busqueda = ({ buscarPersona }) => {
+const Busqueda = ({ buscarPersona, newSearch }) => {
   return (
     <div>
-      filter shown with <input onChange={buscarPersona} />
+      filter shown with <input value={newSearch} onChange={buscarPersona} />
     </div>
   );
 };
