@@ -1,0 +1,27 @@
+/* eslint-disable react/prop-types */
+import React from 'react'
+const AgregarNombre = ({
+    newName,
+    newPhone,
+    CambiarNombre,
+    CambiarTelefono,
+    ImprimirNombres
+}) => {
+    return (
+        <div>
+            <form onSubmit={ImprimirNombres}>
+                <div>
+          name: <input value={newName} onChange={CambiarNombre} />
+                </div>
+                <div>
+          number: <input value={newPhone} onChange={CambiarTelefono} />
+                </div>
+                <div>
+                    <button type="submit">add</button>
+                </div>
+            </form>
+        </div>
+    )
+}
+
+export default AgregarNombre
